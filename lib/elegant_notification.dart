@@ -11,7 +11,6 @@ import 'package:elegant_notification/widgets/toast_content.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class ElegantNotification extends StatefulWidget {
   ElegantNotification({
     Key? key,
@@ -30,14 +29,10 @@ class ElegantNotification extends StatefulWidget {
     this.displayCloseButton = true,
     this.onCloseButtonPressed,
     this.onProgressFinished,
-    this.position = Alignment.topRight,
-    this.animation = AnimationType.fromRight,
     this.animationDuration = const Duration(milliseconds: 600),
     this.iconSize = defaultIconSize,
     this.action,
     this.autoDismiss = true,
-    this.height,
-    this.width,
     this.progressBarHeight,
     this.progressBarWidth,
     this.progressBarPadding,
@@ -66,14 +61,10 @@ class ElegantNotification extends StatefulWidget {
     this.onCloseButtonPressed,
     this.onProgressFinished,
     this.iconSize = defaultIconSize,
-    this.position = Alignment.topRight,
-    this.animation = AnimationType.fromRight,
     this.animationDuration = const Duration(milliseconds: 600),
     this.showProgressIndicator = true,
     this.action,
     this.autoDismiss = true,
-    this.height,
-    this.width,
     this.progressBarHeight,
     this.progressBarWidth,
     this.progressBarPadding,
@@ -106,14 +97,10 @@ class ElegantNotification extends StatefulWidget {
     this.onCloseButtonPressed,
     this.onProgressFinished,
     this.iconSize = defaultIconSize,
-    this.position = Alignment.topRight,
-    this.animation = AnimationType.fromRight,
     this.animationDuration = const Duration(milliseconds: 600),
     this.showProgressIndicator = true,
     this.action,
     this.autoDismiss = true,
-    this.height,
-    this.width,
     this.progressBarHeight,
     this.progressBarWidth,
     this.progressBarPadding,
@@ -146,14 +133,10 @@ class ElegantNotification extends StatefulWidget {
     this.onCloseButtonPressed,
     this.onProgressFinished,
     this.iconSize = defaultIconSize,
-    this.position = Alignment.topRight,
-    this.animation = AnimationType.fromRight,
     this.animationDuration = const Duration(milliseconds: 600),
     this.showProgressIndicator = true,
     this.action,
     this.autoDismiss = true,
-    this.height,
-    this.width,
     this.progressBarHeight,
     this.progressBarWidth,
     this.progressBarPadding,
@@ -184,199 +167,48 @@ class ElegantNotification extends StatefulWidget {
         'You can not set both an action and an onTap method',
       );
     }
-
-    if (position == Alignment.centerRight) {
-      assert(
-        animation != AnimationType.fromLeft &&
-            animation != AnimationType.fromBottom &&
-            animation != AnimationType.fromTop,
-      );
-    } else if (position == Alignment.centerLeft) {
-      assert(
-        animation != AnimationType.fromRight &&
-            animation != AnimationType.fromBottom &&
-            animation != AnimationType.fromTop,
-      );
-    } else if (position == Alignment.topCenter) {
-      assert(
-        animation != AnimationType.fromBottom &&
-            animation != AnimationType.fromLeft &&
-            animation != AnimationType.fromRight,
-      );
-    } else if (position == Alignment.topRight) {
-      assert(
-        animation != AnimationType.fromLeft &&
-            animation != AnimationType.fromBottom,
-      );
-    } else if (position == Alignment.topLeft) {
-      assert(
-        animation != AnimationType.fromRight &&
-            animation != AnimationType.fromBottom,
-      );
-    } else if (position == Alignment.bottomCenter) {
-      assert(
-        animation != AnimationType.fromTop &&
-            animation != AnimationType.fromLeft &&
-            animation != AnimationType.fromRight,
-      );
-    } else if (position == Alignment.bottomRight) {
-      assert(
-        animation != AnimationType.fromLeft &&
-            animation != AnimationType.fromTop,
-      );
-    } else if (position == Alignment.bottomLeft) {
-      assert(
-        animation != AnimationType.fromRight &&
-            animation != AnimationType.fromTop,
-      );
-    }
   }
 
-  ///The toast title widget
   final Widget? title;
-
-  ///The toast description widget
   final Widget description;
-
-  ///a secondary widget displayed under the description widget
-  ///by default `action == null`
   final Widget? action;
-
-  ///The toast icon, required only if using the default constructor
-  ///for other toast types (Success, Info, error) the icon is not changeable
-  ///
-  late Widget? icon;
-
-  ///The size of the icon, by default it's 20px
-  ///
+  late final Widget? icon;
   final double iconSize;
-
-  ///The type of the animation set on the notification
-  ///possible values
-  ///```dart
-  ///{
-  ///fromLeft,
-  ///fromRight,
-  ///fromTop,
-  ///fromBottom,
-  ///}
-  ///```
-  ///default value `fromLeft`
-  ///
-  final AnimationType animation;
-
-  ///The duration of the animation
-  ///Default value `Duration(milliseconds: 600)`
-  ///
   final Duration animationDuration;
-
-  //The toast animation curve by default the curve is set to [Curves.ease]
   final Curve animationCurve;
-
-  /// the background color of the notification
-  /// by default it's set to white
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
-  late Color background;
-
-  ///the border radius of the notification widget
+  late final Color background;
   final BorderRadius? borderRadius;
-
-  ///The notification widget border
   final BoxBorder? border;
-
-  ///How much the notification will take time,
-  ///by default the duration is `3000 milliseconds`
-  ///
   final Duration toastDuration;
-
-  ///The notification shadow
   final BoxShadow? shadow;
-
-  ///enable or disable the progress indicator rendering
-  ///by default the indicator is displayed
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
-  ///
-  late bool showProgressIndicator;
-
-  ///The color of the progress
-  ///by default it's blue
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
-  late Color progressIndicatorColor;
-
-  ///progress bar indicator width, by default it's null so it takes the widget's width
+  late final bool showProgressIndicator;
+  late final Color progressIndicatorColor;
   final double? progressBarWidth;
-
-  ///progress bar indicator height, by default it's null so it takes the widget's height
   final double? progressBarHeight;
-
-  ///progress bar indicator padding constraints
   final EdgeInsetsGeometry? progressBarPadding;
-
-  ///The progress indicator background color
-  ///by default it's grey
   final Color progressIndicatorBackground;
-
-  ///Display or hide the close button
-  ///by default the close button is displayed
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
-  ///
   final bool displayCloseButton;
 
-  ///Close widget rendered as the close function
-  ///by default the close button is displayed, if you don't want it set `closeButton` to null
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
-  ///
   final Widget Function(void Function() dismissNotification)? closeButton;
-
-  ///Function invoked when user press on the close button
   final void Function()? onCloseButtonPressed;
-
-  ///Function invoked when the notification is closed after the finish of the progress indicator
-  ///
   final void Function()? onProgressFinished;
-
-  ///Function invoked when the user taps on the notification
   final void Function()? onNotificationPressed;
-
-  ///Function invoked when tapping outside the notification
-  ///Or when pressing the back button of the phone
-  ///or when tapping on the screen
   final Function()? onDismiss;
 
-  ///define whether the notification will be dismissed automatically or not
-  ///by default `autoDimiss == false`
   final bool autoDismiss;
-
-  ///The direction of the dismissible widget
-  ///by default it's `DismissDirection.horizontal`
   final DismissDirection dismissDirection;
-
-  ///The notification position in the screen
-  ///by default the position is set to `Alignment.topRight`
-  final Alignment position;
-
-  ///the width of the notification widget
-  final double? width;
-
-  ///the height of the notification widget
-  final double? height;
-
-  ///If the notification is dismissible or not
-  ///by default it's true
   final bool isDismissable;
-
-  /// The margin between the notification and the edge of the screen
   final double notificationMargin;
 
   /// The options for the stacked mode
   final StackedOptions? stackedOptions;
 
-  late NotificationType _notificationType;
-  OverlayEntry? overlayEntry;
+  late final NotificationType _notificationType;
+  late final OverlayEntry? overlayEntry;
 
-  late Timer _closeTimer;
-  late Animation<Offset> _offsetAnimation;
-  late AnimationController _slideController;
+  late final Timer _closeTimer;
+  late final Animation<Offset> _offsetAnimation;
+  late final AnimationController _slideController;
   final OverlayManager overlayManager = OverlayManager();
 
   final Key uniqueKey = UniqueKey();
@@ -420,50 +252,6 @@ class ElegantNotification extends StatefulWidget {
       .toList()
       .indexWhere((element) => element == internalKey);
 
-  double mainContainerHeight(BuildContext context) =>
-      height ?? MediaQuery.of(context).size.height * 0.12;
-  double mainContainerWidth(BuildContext context) =>
-      width ?? MediaQuery.of(context).size.width * 0.7;
-
-  double getTopPos(context) {
-    if (stackedOptions?.type == StackedType.above) {
-      return -(mainContainerHeight(context) * stackedItemPosition) +
-          (stackedOptions?.itemOffset.dy ?? 0) * stackedItemPosition;
-    } else if (stackedOptions?.type == StackedType.below) {
-      return (mainContainerHeight(context) * stackedItemPosition) +
-          (stackedOptions?.itemOffset.dy ?? 0) * stackedItemPosition;
-    } else {
-      return (stackedOptions?.itemOffset.dy ?? 0) *
-          (stackOverlaysLength - 1 - stackedItemPosition);
-    }
-  }
-
-  double alignmentToLeftPos(BuildContext context) {
-    if (position.x == 1) {
-      return MediaQuery.of(context).size.width -
-          mainContainerWidth(context) -
-          notificationMargin;
-    } else if (position.x == -1) {
-      return notificationMargin;
-    } else {
-      return ((position.x + 1) / 2) * MediaQuery.of(context).size.width -
-          (mainContainerWidth(context) / 2);
-    }
-  }
-
-  double alignmentToTopPos(BuildContext context) {
-    if (position.y == 1) {
-      return MediaQuery.of(context).size.height -
-          mainContainerHeight(context) -
-          notificationMargin;
-    } else if (position.y == -1) {
-      return notificationMargin;
-    } else {
-      return ((position.y + 1) / 2) * MediaQuery.of(context).size.height -
-          (mainContainerHeight(context) / 2);
-    }
-  }
-
   double getScale() {
     if (stackedOptions?.scaleFactor != null) {
       return clampDouble(
@@ -484,10 +272,9 @@ class ElegantNotification extends StatefulWidget {
       builder: (context) {
         return AnimatedPositioned(
           duration: const Duration(milliseconds: 300),
-          left: alignmentToLeftPos(context) +
-              (stackedOptions?.itemOffset.dx ?? 0) *
-                  (stackOverlaysLength - 1 - stackedItemPosition),
-          top: alignmentToTopPos(context) + getTopPos(context),
+          left: 20,
+          right: 20,
+          bottom: notificationMargin,
           child: AnimatedScale(
             duration: const Duration(milliseconds: 300),
             scale: getScale(),
@@ -532,63 +319,15 @@ class ElegantNotificationState extends State<ElegantNotification>
       vsync: this,
     );
 
-    switch (widget.animation) {
-      case AnimationType.fromLeft:
-        widget._offsetAnimation = Tween<Offset>(
-          begin: const Offset(-2, 0),
-          end: const Offset(0, 0),
-        ).animate(
-          CurvedAnimation(
-            parent: widget._slideController,
-            curve: widget.animationCurve,
-          ),
-        );
-        break;
-      case AnimationType.fromRight:
-        widget._offsetAnimation = Tween<Offset>(
-          begin: const Offset(2, 0),
-          end: const Offset(0, 0),
-        ).animate(
-          CurvedAnimation(
-            parent: widget._slideController,
-            curve: widget.animationCurve,
-          ),
-        );
-        break;
-      case AnimationType.fromTop:
-        widget._offsetAnimation = Tween<Offset>(
-          begin: const Offset(0, -7),
-          end: const Offset(0, 0),
-        ).animate(
-          CurvedAnimation(
-            parent: widget._slideController,
-            curve: widget.animationCurve,
-          ),
-        );
-        break;
-      case AnimationType.fromBottom:
-        widget._offsetAnimation = Tween<Offset>(
-          begin: const Offset(0, 4),
-          end: const Offset(0, 0),
-        ).animate(
-          CurvedAnimation(
-            parent: widget._slideController,
-            curve: widget.animationCurve,
-          ),
-        );
-        break;
-      default:
-        widget._offsetAnimation = Tween<Offset>(
-          begin: const Offset(-2, 0),
-          end: const Offset(0, 0),
-        ).animate(
-          CurvedAnimation(
-            parent: widget._slideController,
-            curve: widget.animationCurve,
-          ),
-        );
-        break;
-    }
+    widget._offsetAnimation = Tween<Offset>(
+      begin: const Offset(0, 4),
+      end: const Offset(0, 0),
+    ).animate(
+      CurvedAnimation(
+        parent: widget._slideController,
+        curve: widget.animationCurve,
+      ),
+    );
 
     /// ! To support Flutter < 3.0.0
     /// This allows a value of type T or T?
@@ -612,11 +351,6 @@ class ElegantNotificationState extends State<ElegantNotification>
     widget.closeOverlay();
   }
 
-  double get mainContainerHeight =>
-      widget.height ?? MediaQuery.of(context).size.height * 0.12;
-  double get mainContainerWidth =>
-      widget.width ?? MediaQuery.of(context).size.width * 0.7;
-
   @override
   Widget build(BuildContext context) {
     return SlideTransition(
@@ -633,8 +367,6 @@ class ElegantNotificationState extends State<ElegantNotification>
         child: InkWell(
           onTap: widget.onNotificationPressed,
           child: Container(
-            width: widget.width ?? MediaQuery.of(context).size.width * 0.7,
-            height: widget.height ?? MediaQuery.of(context).size.height * 0.12,
             decoration: BoxDecoration(
               borderRadius: widget.borderRadius ?? BorderRadius.circular(5.0),
               border: widget.border,
@@ -645,7 +377,8 @@ class ElegantNotificationState extends State<ElegantNotification>
             ),
             child: Column(
               children: [
-                Expanded(
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   child: ToastContent(
                     title: widget.title,
                     description: widget.description,
