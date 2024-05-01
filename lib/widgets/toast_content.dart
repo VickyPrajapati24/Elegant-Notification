@@ -1,6 +1,4 @@
-import 'package:elegant_notification/gen/assets.gen.dart';
-import 'package:elegant_notification/resources/arrays.dart';
-import 'package:elegant_notification/resources/constants.dart';
+import 'package:elegant_notification/resources/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/colors.dart';
@@ -31,14 +29,13 @@ class ToastContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isRtl = Directionality.of(context) == TextDirection.rtl;
-
+    const verticalComponentPadding = 20.0;
+    // const defaultIconSize = 20.0;
+    const horizontalComponentPadding = 10.0;
     return Row(
       children: [
         Padding(
-          padding: isRtl
-              ? const EdgeInsets.only(right: horizontalComponentPadding)
-              : const EdgeInsets.only(left: horizontalComponentPadding),
+          padding: const EdgeInsets.only(left: horizontalComponentPadding),
           child: _getNotificationIcon(),
         ),
         const SizedBox(
@@ -85,22 +82,17 @@ class ToastContent extends StatelessWidget {
                 onTap: () {
                   onCloseButtonPressed.call();
                 },
-                child: Padding(
-                  padding: isRtl
-                      ? const EdgeInsets.only(
-                          top: verticalComponentPadding,
-                          left: horizontalComponentPadding,
-                        )
-                      : const EdgeInsets.only(
-                          top: verticalComponentPadding,
-                          right: horizontalComponentPadding,
-                        ),
-                  child: const Column(
+                child: const Padding(
+                  padding: EdgeInsets.only(
+                    top: verticalComponentPadding,
+                    right: horizontalComponentPadding,
+                  ),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Icon(
                         Icons.close,
-                        color: Colors.grey,
+                        color: greyColor,
                         size: 15,
                       ),
                     ],
@@ -115,11 +107,11 @@ class ToastContent extends StatelessWidget {
   Widget _getNotificationIcon() {
     switch (notificationType) {
       case NotificationType.success:
-        return _renderImage(Assets.icons.success.assetName);
+        return _renderImage('assets/icons/success.png');
       case NotificationType.error:
-        return _renderImage(Assets.icons.error.assetName);
+        return _renderImage('assets/icons/error.png');
       case NotificationType.info:
-        return _renderImage(Assets.icons.info.assetName);
+        return _renderImage('assets/icons/info.png');
       default:
         return icon!;
     }
@@ -127,10 +119,7 @@ class ToastContent extends StatelessWidget {
 
   Image _renderImage(String imageAsset) {
     return Image(
-      image: AssetImage(
-        imageAsset,
-        package: packageName,
-      ),
+      image: AssetImage(imageAsset, package: 'elegant_notification'),
       width: iconSize,
     );
   }

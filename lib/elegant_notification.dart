@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:elegant_notification/resources/arrays.dart';
 import 'package:elegant_notification/resources/colors.dart';
-import 'package:elegant_notification/resources/constants.dart';
 import 'package:elegant_notification/resources/extensions.dart';
 import 'package:elegant_notification/resources/stacked_options.dart';
 import 'package:elegant_notification/widgets/animated_progress_bar.dart';
@@ -30,7 +28,7 @@ class ElegantNotification extends StatefulWidget {
     this.onCloseButtonPressed,
     this.onProgressFinished,
     this.animationDuration = const Duration(milliseconds: 600),
-    this.iconSize = defaultIconSize,
+    this.iconSize = 20,
     this.action,
     this.autoDismiss = true,
     this.progressBarHeight,
@@ -60,7 +58,7 @@ class ElegantNotification extends StatefulWidget {
     this.displayCloseButton = true,
     this.onCloseButtonPressed,
     this.onProgressFinished,
-    this.iconSize = defaultIconSize,
+    this.iconSize = 20,
     this.animationDuration = const Duration(milliseconds: 600),
     this.showProgressIndicator = true,
     this.action,
@@ -96,7 +94,7 @@ class ElegantNotification extends StatefulWidget {
     this.displayCloseButton = true,
     this.onCloseButtonPressed,
     this.onProgressFinished,
-    this.iconSize = defaultIconSize,
+    this.iconSize = 20,
     this.animationDuration = const Duration(milliseconds: 600),
     this.showProgressIndicator = true,
     this.action,
@@ -132,7 +130,7 @@ class ElegantNotification extends StatefulWidget {
     this.displayCloseButton = true,
     this.onCloseButtonPressed,
     this.onProgressFinished,
-    this.iconSize = defaultIconSize,
+    this.iconSize = 20,
     this.animationDuration = const Duration(milliseconds: 600),
     this.showProgressIndicator = true,
     this.action,
@@ -204,7 +202,7 @@ class ElegantNotification extends StatefulWidget {
   final StackedOptions? stackedOptions;
 
   late final NotificationType _notificationType;
-  late final OverlayEntry? overlayEntry;
+  late OverlayEntry? overlayEntry;
 
   late final Timer _closeTimer;
   late final Animation<Offset> _offsetAnimation;
